@@ -9,9 +9,10 @@ const form = document.querySelector('form');
 const randomNumber = parseInt((Math.random() * 100) + 1);
 
 const newGameButton = document.createElement('button');
+newGameButton.innerText = "Start new game";
 
 let prevGuess = [];
-let TOTAL_GUESSES = 1;
+let TOTAL_GUESSES = 10;
 
 let playGame = true;
 
@@ -74,11 +75,26 @@ function displayMessage(message){
 function endGame(){
     userInput.value = '';
     userInput.setAttribute('disabled', '');
+    submit.setAttribute('disabled', '');
+    playGame = false;
     newGame();
 }
 
 function newGame(){
-    
+    result.appendChild(newGameButton);
+
+    newGameButton.addEventListener('click', function(e){
+        userInput.value = '';
+        submit.removeAttribute('disabled');
+        userInput.removeAttribute('disabled');
+        result.removeChild(newGameButton);
+        guesses.innerText = [];
+        TOTAL_GUESSES = 10;
+        guessRemain.innerText = TOTAL_GUESSES;
+        lowOrHi.innerHTML = ``;
+
+        playGame = true;
+    })
 }
 
 
